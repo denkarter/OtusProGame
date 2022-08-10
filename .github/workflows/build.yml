@@ -6,6 +6,16 @@ jobs:
   build:
     name: Build my project ✨
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows64
+          - StandaloneLinux64
+          - Android
+          - iOS
     steps:
       # Checkout
       - name: Checkout repository
@@ -37,15 +47,10 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform:
-            - StandaloneOSX
-            - StandaloneWindows64
-            - StandaloneLinux64
-            - Android
-            - iOS
+          targetPlatform: ${{ matrix.targetPlatform }}
 
       # Output
       - uses: actions/upload-artifact@v2
         with:
-          name: Build
+          name: ${{ matrix.targetPlatform }}
           path: build
