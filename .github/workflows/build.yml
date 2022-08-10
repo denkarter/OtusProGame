@@ -12,10 +12,6 @@ jobs:
       matrix:
         targetPlatform:
           - StandaloneOSX
-          - StandaloneWindows64
-          - StandaloneLinux64
-          - Android
-          - iOS
     steps:
       # Checkout
       - name: Checkout repository
